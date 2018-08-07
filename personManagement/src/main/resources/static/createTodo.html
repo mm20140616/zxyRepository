@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建代办事项</title>
+    <style>
+        tr{
+            text-align: right;
+        }
+        input{
+            width:140px;
+            height: 30px;
+        }
+    </style>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div class="col-xs-12">
+       <h2 align="center">新建代办事项</h2>
+       <table align="center">
+           <tr>
+               <td>代办事项id：</td>
+               <td><input type="text" id="toDoItemId" name="toDoItemId" ></td>
+           </tr>
+           <tr>
+               <td>属主用户：</td>
+               <td><input type="text" id="userId" name="userId" ></td>
+           </tr>
+           <tr>
+               <td>待办事项标题：</td>
+               <td><input type="text" id="toDoItemTitle" name="toDoItemTitle" ></td>
+           </tr>
+           <tr>
+               <td>代办事项内容：</td>
+               <td><input type="text" id="toDoItemContent" name="toDoItemContent" ></td>
+           </tr>
+           <tr>
+               <td>优先级：</td>
+               <td><input type="text" id="priority" name="priority" ></td>
+           </tr>
+           <!--<tr>-->
+               <!--<td>创建时间：</td>-->
+               <!--<td><input type="date" id="creationDate" name="creationDate" ></td>-->
+           <!--</tr>-->
+           <!--<tr>-->
+               <!--<td>更新时间：</td>-->
+               <!--<td><input type="date" id="lastUpdateDate" name="lastUpdateDate" ></td>-->
+           <!--</tr>-->
+           <tr>
+               <td>备注：</td>
+               <td><input type="text" id="comments" name="comments" ></td>
+           </tr>
+           <tr>
+               <td colspan="2" align="center"><span id="submitTodo" class="btn btn-info" style="margin-top: 20px;margin-left: 100px;">提交</span></td>
+           </tr>
+       </table>
+    </div>
+    <script>
+        $(document).ready(function () {
+            function saveItem() {
+                var toDoItemId = $("#toDoItemId").val();
+                var userId = $("#userId").val();
+                var toDoItemTitle = $("#toDoItemTitle").val();
+                var toDoItemContent = $("#toDoItemContent").val();
+                var priority = $("#priority").val();
+                // var creationDate = $("#creationDate").val();
+                // var lastUpdateDate = $("#lastUpdateDate").val();
+                var comments = $("#comments").val();
+                $.ajax({
+                    url:"/saveTodo",
+                    type:"POST",
+                    data:JSON.stringify({
+                        'toDoItemId':toDoItemId,
+                        'userId':userId,
+                        'toDoItemTitle':toDoItemTitle,
+                        'priority':priority,
+                        'toDoItemContent':toDoItemContent,
+                        'comments':comments
+                    }),
+                    contentType:"application/json",
+                    dataType:'json',
+                    success:function (result) {
+                        alert(result.message);
+                        $("#rightContent").reload();
+                    }
+                })
+            }
+            $("#submitTodo").click(function () {
+                saveItem();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "car":"bmw",
+  "msg":[
+    {"id":1,"color":"red","price":100},
+    {"id":2,"color":"blue","price":200},
+    {"id":3,"color":"green","price":300},
+    {"id":4,"color":"yellow","price":400}
+  ],
+  "is ready":true
+}

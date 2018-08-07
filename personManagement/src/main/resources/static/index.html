@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登陆</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form id="loginForm" method="post" class="loginForm">
+            <div style="margin-top: 100px;">
+                <!--用户名输入框 -->
+                <div class="input-group col-xs-4 col-xs-offset-4">
+                    <span class="input-group-addon" id="addon1">@</span>
+                    <input id="userName" type="text" class="form-control" placeholder="用户名" aria-describedby="addon1">
+                </div>
+                <br>
+                <div class="input-group col-xs-4 col-xs-offset-4" >
+                    <label id="nameError" style="color: #ff0000;text-align: center"></label>
+                    <label hidden id="pwdError" style="color: #ff0000;text-align: center"></label>
+                </div>
+                <!--密码输入框 -->
+                <div class="input-group col-xs-4 col-xs-offset-4">
+                    <span class="input-group-addon" id="addon2">@</span>
+                    <input id="password" type="password" class="form-control" placeholder="密码" aria-describedby="addon2">
+
+                </div>
+
+                <br>
+                <!--登陆按钮 -->
+                <div class="col-xs-4 col-xs-offset-4">
+                    <span id="loginBtn" style="width: 100%;" class="btn btn-default">登 录</span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+
+        function checkLogin () {
+            var username = $("#userName").val();
+            // console.log(username);
+            var password = $("#password").val();
+            //验证用户名是否为空
+            if (username==""||username==null) {
+                $("#nameError").innerHTML = "用户名不能为空";
+                return;
+            }
+            //验证密码是否为空
+            if (password==""||password==null) {
+                $("#pwdError").innerHTML = "请输入密码";
+                return;
+            }
+            //传递数据,contentType必须配
+            $.ajax({
+                url:'/checkLogin',
+                type:'POST',
+                data:JSON.stringify({'userName':username,'password':password}),
+                contentType:"application/json",
+                dataType:'json',
+                success:function (result) {
+                    if (result.__status == "success") {
+                        var msg = result.message;
+                        var userid = result.userId;
+                        alert(msg);
+                        $.cookie('userCookie',username,{expires:10,path:'/'});
+                        $.cookie('userIdCookie',userid,{expires:10,path:'/'});
+                        window.location.href = "main.html";
+                        return;
+                    }
+                    if (result.__status == "error") {
+                        var msg = result.message;
+                        alert(msg);
+                        location.reload();
+                    }
+                }
+            });
+
+        }
+        $("#loginBtn").click(function () {
+            checkLogin();
+        });
+    </script>
+</body>
+</html>

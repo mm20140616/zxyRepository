@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hand.mappers.TodoItemMapper">
+    <resultMap id="todoItemMap" type="com.hand.dto.TodoItems">
+        <id property="toDoItemId" column="todo_item_id" />
+        <result property="userId" column="user_id"/>
+        <result property="toDoItemTitle" column="todo_item_title"/>
+        <result property="toDoItemContent" column="todo_item_content"/>
+        <result property="priority" column="priority"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="lastUpdateDate" column="last_update_date"/>
+        <result property="comments" column="comments"/>
+    </resultMap>
+
+    <select id="getTodoList" parameterType="int" resultMap="todoItemMap">
+        SELECT t.todo_item_id,
+               u.user_name user_id,
+               t.todo_item_title,
+               t.todo_item_content,
+               t.priority,
+               t.creation_date,
+               t.last_update_date,
+               t.comments
+          FROM CUX_TODO_ITEMS t,
+               CUX_USERS u
+         WHERE t.user_id=u.user_id
+           AND t.USER_ID=#{0}
+    </select>
+    <insert id="saveTodo">
+      INSERT
+        INTO CUX_TODO_ITEMS
+      VALUES (#{0},#{1},#{2},#{3},#{4},null,null,#{5})
+    </insert>
+    <delete id="deleteItem">
+        DELETE
+          FROM CUX_TODO_ITEMS
+         WHERE TODO_ITEM_ID=#{0}
+    </delete>
+
+    <select id="findItemById" parameterType="int" resultType="com.hand.dto.TodoItems">
+      SELECT *
+        FROM CUX_TODO_ITEMS
+       WHERE TODO_ITEM_ID=#{0}
+    </select>
+</mapper>

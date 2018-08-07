@@ -1,0 +1,57 @@
+
+<script src="js/raydreams.js"></script>
+<div class="col-xs-12">
+    <div class="row">
+        <div >
+            <h1>个人信息列表</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 col-xs-offset-9" style="text-align: right">
+            <span class="btn btn-primary" id="updateUser">更新</span>
+        </div>
+    </div>
+    <div class="row">
+        <div id="userDataTable" class="table table-striped table-bordered">
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var userid = $.cookie('userIdCookie');
+        var myTable=null;
+        $.ajax({
+            url:"/userListShow",
+            type:"POST",
+            data:JSON.stringify({'userId':userid}),
+            contentType:"application/json",
+            dataType:'json',
+            success:function (result) {
+                myTable=$("#userDataTable").raytable({
+                    datasource: { data: [result],
+                                keyfield: 'userId' },
+                    pageSize:10,
+                    maxPageButtons:true,
+                    columns: [
+                        { title: "用户ID", field: "userId"},
+                        { title: "用户名称", field: "userName"},
+                        { title: "用户密码", field: "password" },
+                        { title: "性别", field: "sex"},
+                        { title: "年龄", field: "age" },
+                        { title: "电话", field: "phoneNumber"},
+                        { title: "创建时间", field:"creationDate"},
+                        { title: "更新时间", field:"lastUpdateDate"},
+                        { title: "备注", field:"comments"}
+                    ]
+                });
+            }
+        });
+        $("#updateUser").click(function () {
+            var url = "/updateUser.html";
+            $("#rightContent").load(url);
+        });
+
+    });
+
+</script>

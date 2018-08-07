@@ -1,0 +1,10 @@
+{
+  "car":"bmw",
+  "color":[
+    {"id":1,"name":"bmw1","color":"blue","price":100},
+    {"id":2,"name":"bmw2","color":"red","price":200},
+    {"id":3,"name":"bmw3","color":"green","price":300},
+    {"id":4,"name":"bmw4","color":"yellow","price":400}
+  ],
+  "is ready":true
+}
