@@ -33,7 +33,6 @@ public class UserController {
         int flag = user.getFlag();
         //判断是否符合登录条件
         boolean f = uname.equals(username)&&pwd.equals(password)&&flag == 1;
-        System.out.println(f);
         if (f) {
             //return "redirect:main.jsp";
             return "main";

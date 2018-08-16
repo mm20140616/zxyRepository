@@ -7,7 +7,7 @@
 
     <display-name>Archetype Created Web Application</display-name>
     <welcome-file-list>
-        <welcome-file>/login.jsp</welcome-file>
+        <welcome-file>/jsp/login.jsp</welcome-file>
     </welcome-file-list>
     <!--spring和mybatis的配置文件-->
     <context-param>
@@ -34,10 +34,6 @@
     <!--spring 监听器-->
     <listener>
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-    <!--防止spring内存溢出监听器:当应用关闭时，刷新jdk中的缓冲（主要是由JavaBeans Introspector引起的），确保那些class loader等被释放掉。-->
-    <listener>
-        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
 
     <!--spring mvc servlet-->
