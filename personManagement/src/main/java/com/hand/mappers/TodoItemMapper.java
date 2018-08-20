@@ -1,10 +1,8 @@
 package com.hand.mappers;
 
-import com.hand.dto.BaseDTO;
 import com.hand.dto.TodoItems;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Date;
 import java.util.List;
 
 @Mapper

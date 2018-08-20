@@ -1,11 +1,13 @@
 package com.hand.controller;
 
+import com.hand.dto.BaseDTO;
 import com.hand.dto.UserDTO;
 import com.hand.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,31 +19,18 @@ import java.util.List;
  * @Date 2018/8/12 13:46
  * @Version 1.0
  **/
-@Controller
-@RequestMapping("/")
+@RestController
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @RequestMapping(value="checkLogin",method = RequestMethod.POST)
-    public String selectUserById (@RequestParam("id") int id, @RequestParam("username") String username,
-                                  @RequestParam("password") String password) {
-        UserDTO user = userService.selectUserById(id);
-        String uname = user.getUsername();
-        String pwd = user.getPassword();
-        int flag = user.getFlag();
-        //判断是否符合登录条件
-        boolean f = uname.equals(username)&&pwd.equals(password)&&flag == 1;
-        if (f) {
-            //return "redirect:main.jsp";
-            return "main";
-        } else {
-            //return "redirect:error.jsp";
-            return "error";
-        }
-
-
+    @RequestMapping(value="/checkLogin")
+    public UserDTO selectUserByUserNameAndPassword (@RequestBody UserDTO userDTO,HttpSession httpSession) {
+        UserDTO user = userService.selectUserByUserNameAndPassword(userDTO,httpSession);
+        return user;
     }
+
+
 
 }

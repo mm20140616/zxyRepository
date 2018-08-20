@@ -1,8 +1,5 @@
 package com.hand.dto;
 
-import org.springframework.stereotype.Component;
-
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigInteger;
 
@@ -14,20 +11,20 @@ import java.math.BigInteger;
  * @Date 2018/8/12 13:21
  * @Version 1.0
  **/
-public class UserDTO implements Serializable {
+public class UserDTO extends BaseDTO implements Serializable {
     private static final long serialVersionUID=1L;
 
-    private BigInteger id; //自增主键ID
+    private Integer id; //自增主键ID
     private String username; //用户名
     private String password; //密码
     private String truename; //真实姓名
     private int flag; //标记，为1时表示用户启用，0为禁用，默认为禁用
 
-    public BigInteger getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,7 +60,7 @@ public class UserDTO implements Serializable {
         this.flag = flag;
     }
 
-    public UserDTO(BigInteger id, String username, String password, String truename, int flag) {
+    public UserDTO(Integer id, String username, String password, String truename, int flag) {
         this.id = id;
         this.username = username;
         this.password = password;

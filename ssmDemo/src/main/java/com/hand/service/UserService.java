@@ -2,6 +2,8 @@ package com.hand.service;
 
 import com.hand.dto.UserDTO;
 
+import javax.servlet.http.HttpSession;
+
 public interface UserService {
-    UserDTO selectUserById (int id);
+    UserDTO selectUserByUserNameAndPassword (UserDTO userDTO, HttpSession httpSession);
 }

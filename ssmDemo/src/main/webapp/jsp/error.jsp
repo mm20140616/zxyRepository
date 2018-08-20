@@ -6,12 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>错误界面</title>
-</head>
-<body>
-    用户名或密码错误，请重新输入！！！
-    <a href="login.jsp">返回登录界面</a>
-</body>
-</html>
+<p style="font-size:22px">用户名或密码错误,请确认之后重新登录....</p>
+<script>
+    window.setTimeout(function(){
+        window.open('jsp/login.jsp','_parent');
+    },1000);
+</script>

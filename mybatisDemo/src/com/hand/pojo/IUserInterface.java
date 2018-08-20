@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface IUserInterface {
     //该方法名称必须与User.xml中的select语句的id相同
-    public User selectUserById(int id);
-    public List<User> selectUsers(String userName);
-    public void addUser(User user);
-    public void updateUser(User user);
-    public void deleteUserById(int id);
-    public List<Article> getUserArticles(int id);
+     User selectUserById(int id);
+     List<User> selectUsers(String userName);
+     void addUser(User user);
+     void updateUser(User user);
+     void deleteUserById(int id);
+     List<Article> getUserArticles(int id);
 }
