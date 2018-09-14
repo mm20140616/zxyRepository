@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hbi.sales.mapper.ArCustomersMapper">
+    <resultMap id="BaseResultMap" type="hbi.sales.dto.ArCustomers">
+        <result column="CUSTOMER_ID" property="customerId" jdbcType="DECIMAL" />
+        <result column="CUSTOMER_NUMBER" property="customerNumber" jdbcType="VARCHAR" />
+        <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR" />
+        <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL" />
+        <result column="ENABLED_FLAG" property="enabledFlag" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="mySelectCustomer" parameterType="hbi.sales.dto.ArCustomers" resultMap="BaseResultMap">
+        SELECT CUSTOMER_ID,CUSTOMER_NUMBER,CUSTOMER_NAME
+        FROM hap_ar_customers
+        <where>
+            <if test="companyId != null">
+                and COMPANY_ID = #{companyId}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

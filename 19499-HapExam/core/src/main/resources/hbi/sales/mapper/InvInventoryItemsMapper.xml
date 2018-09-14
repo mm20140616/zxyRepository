@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hbi.sales.mapper.InvInventoryItemsMapper">
+    <resultMap id="BaseResultMap" type="hbi.sales.dto.InvInventoryItems">
+        <result column="INVENTORY_ITEM_ID" property="inventoryItemId" jdbcType="DECIMAL" />
+        <result column="UNIT_SELLING_PRICE" property="unitSellingPrice" jdbcType="DECIMAL" />
+        <result column="ITEM_CODE" property="itemCode" jdbcType="VARCHAR" />
+        <result column="ITEM_UOM" property="itemUom" jdbcType="VARCHAR" />
+        <result column="ITEM_DESCRIPTION" property="itemDescription" jdbcType="VARCHAR" />
+        <result column="ORDER_FLAG" property="orderFlag" jdbcType="VARCHAR" />
+        <result column="START_ACTIVE_DATE" property="startActiveDate" jdbcType="DATE" />
+        <result column="END_ACTIVE_DATE" property="endActiveDate" jdbcType="DATE" />
+        <result column="ENABLED_FLAG" property="enabledFlag" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selectItemMsg" parameterType="hbi.sales.dto.InvInventoryItems" resultMap="BaseResultMap">
+        SELECT
+        inv.INVENTORY_ITEM_ID,
+        inv.ITEM_CODE,
+        inv.ITEM_UOM,
+        inv.ITEM_DESCRIPTION,
+        inv.ORDER_FLAG,
+        inv.START_ACTIVE_DATE,
+        inv.END_ACTIVE_DATE,
+        inv.ENABLED_FLAG
+        FROM hap_inv_inventory_items inv
+        <where>
+            <if test="itemCode!=null">
+                and ITEM_CODE  LIKE CONCAT('%',CONCAT(#{itemCode},'%'))
+            </if>
+            <if test="itemDescription!=null">
+                and ITEM_DESCRIPTION LIKE CONCAT('%',CONCAT(#{itemDescription},'%'))
+            </if>
+        </where>
+    </select>
+
+</mapper>
